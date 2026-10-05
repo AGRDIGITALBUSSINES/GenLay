@@ -1,0 +1,29 @@
+## Visual Studio / .NET
+bin/
+obj/
+.vs/
+*.user
+*.suo
+*.userprefs
+GenLay.local.props
+*.cache
+*.dll
+*.pdb
+
+## No versionar las DLL de AutoCAD (son de Autodesk y pesan)
+acmgd.dll
+acdbmgd.dll
+accoremgd.dll
+
+## AutoCAD
+*.bak
+*.dwl
+*.dwl2
+*.sv$
+*.ac$
+*.err
+
+## Sistema
+Thumbs.db
+desktop.ini
+.DS_Store
