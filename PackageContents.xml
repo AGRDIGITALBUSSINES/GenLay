@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Autocarga del plugin sin tener que escribir NETLOAD cada vez.
+
+  Estructura de carpetas que espera AutoCAD:
+
+    GenLay.bundle\
+        PackageContents.xml          <- este archivo
+        Contents\
+            GenLay.dll               <- la salida de tu compilacion
+
+  Copiar la carpeta GenLay.bundle completa a:
+    %APPDATA%\Autodesk\ApplicationPlugins\
+
+  Este paquete declara AutoCAD 2024 (R24.3), la version en la que se
+  compilo y probo. La DLL es .NET Framework 4.8.
+
+  Series de AutoCAD:
+    R24.0 = 2021   R24.1 = 2022   R24.2 = 2023
+    R24.3 = 2024   R25.0 = 2025   R25.1 = 2026
+-->
+<ApplicationPackage
+    SchemaVersion="1.0"
+    AutodeskProduct="AutoCAD"
+    Name="GenLay"
+    AppVersion="1.0.0"
+    Description="Generador automatico de hojas a partir de marcos en el modelo"
+    Author="AGRDB"
+    ProductType="Application"
+    ProductCode="{3F7A9C51-2D48-4E6B-B913-05A8C7E4D2F6}">
+
+  <CompanyDetails
+      Name="AGRDB - AGR Digital Building"
+      Url="https://agrdb.com" />
+
+  <Components Description="GenLay">
+
+    <RuntimeRequirements
+        OS="Win64"
+        Platform="AutoCAD*"
+        SeriesMin="R24.3"
+        SeriesMax="R24.3" />
+
+    <ComponentEntry
+        AppName="GenLay"
+        ModuleName="./Contents/GenLay.dll"
+        Version="1.0.0"
+        AppDescription="Generador de hojas GENLAY"
+        LoadOnAutoCADStartup="False"
+        LoadOnCommandInvocation="True">
+
+      <Commands GroupName="AGRDB">
+        <Command Global="GENLAY" Local="GENLAY" />
+      </Commands>
+
+    </ComponentEntry>
+
+  </Components>
+
+</ApplicationPackage>

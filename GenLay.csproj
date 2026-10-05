@@ -1,0 +1,63 @@
+<!--
+  GenLay - plugin .NET para AutoCAD 2024 (.NET Framework 4.8).
+
+  Las DLL de AutoCAD se buscan en $(AutoCADDir). Si tu instalacion esta en
+  otra carpeta, crea junto a este archivo un GenLay.local.props (no se
+  versiona) con tu ruta:
+
+      <Project>
+        <PropertyGroup>
+          <AutoCADDir>D:\Ruta\AutoCAD 2024</AutoCADDir>
+        </PropertyGroup>
+      </Project>
+
+  o compila con:
+      msbuild GenLay.sln /p:Configuration=Release /p:AutoCADDir="D:\Ruta\AutoCAD 2024"
+
+  Compatibilidad de la API .NET de AutoCAD:
+      AutoCAD 2025 / 2026        -> net8.0-windows
+      AutoCAD 2021 a 2024        -> net48   (este proyecto)
+      AutoCAD 2019 / 2020        -> net472
+-->
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Ruta local de AutoCAD, opcional y fuera del control de versiones. -->
+  <Import Project="GenLay.local.props" Condition="Exists('GenLay.local.props')" />
+
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Platforms>x64</Platforms>
+    <PlatformTarget>x64</PlatformTarget>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <RootNamespace>AGRDB.GenLay</RootNamespace>
+    <AssemblyName>GenLay</AssemblyName>
+    <Version>1.0.0</Version>
+    <Company>AGRDB - AGR Digital Building</Company>
+    <AutoCADDir Condition="'$(AutoCADDir)' == ''">C:\Program Files\Autodesk\AutoCAD 2024</AutoCADDir>
+  </PropertyGroup>
+
+  <!--
+    Private = False  ->  NO copiar las DLL de AutoCAD al bin.
+    Si se copian, AutoCAD carga dos veces los tipos y falla en runtime.
+  -->
+  <ItemGroup>
+    <Reference Include="accoremgd">
+      <HintPath>$(AutoCADDir)\accoremgd.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Acdbmgd">
+      <HintPath>$(AutoCADDir)\acdbmgd.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Acmgd">
+      <HintPath>$(AutoCADDir)\acmgd.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+
+</Project>
